@@ -139,7 +139,7 @@ public class ImageApp extends PApplet {
 
         lines = generateLines(edgeImg);
         for (Line line : lines) {
-            buffer.addAll(line.toBufferPoints(2));
+            buffer.addAll(line.toBufferPoints(7));
         }
         println("Done Processing");
     }
@@ -154,12 +154,12 @@ public class ImageApp extends PApplet {
     ArrayList<Line> generateLines(PImage edgeImg) {
         ArrayList<Line> lines = new ArrayList<Line>();
 
-        int num_steps = 100;
-        int ang_res = 10;
+        int num_steps = 80;
+        int ang_res = 40;
 
         for (int ri = 0; ri < num_steps; ri++) {
-            float radius = ((float)ri) / ((float)num_steps);
-            float ang_step = 2.0f * 3.14159f / (ri + 1.0f + ang_res);
+            float radius = ((float)ri + 1) / ((float)num_steps);
+            float ang_step = 2.0f * 3.14159f / (ri / 2.0f + 1.0f + ang_res);
 
             float ang = 0;
             float startx = 0.0f, starty = 0.0f, endx = 0.0f, endy = 0.0f;
@@ -178,7 +178,7 @@ public class ImageApp extends PApplet {
                 if (!IsEdge(edgeImg, y, x) && started) {
                     endx = x;
                     endy = y;
-                    lines.add(new Line(new Point(startx, starty), new Point(endx, endy)));
+                    lines.add(new Line(new Point(startx * 100, starty * 100), new Point(endx * 100, endy * 100)));
                     started = false;
                 }
 
@@ -199,15 +199,15 @@ public class ImageApp extends PApplet {
 //        line(0, 0, 500, 500);
 
         for (Line l : lines) {
-            line((float)l.start.x * 500.0f, (float)l.start.y * 500.0f, (float)l.end.x * 500.0f, (float)l.end.y * 500.0f);
+            line((float)l.start.x * 5.0f, (float)l.start.y * 5.0f, (float)l.end.x * 5.0f, (float)l.end.y * 5.0f);
         }
 
         byte[] buf = new byte[2];
 
         for (Point point : buffer) {
 
-            buf[0] = (byte) (map((float) point.x, 0, 1, 0, 1));
-            buf[1] = (byte) (100 - map((float) point.y, 0, 1, 0, 1));
+            buf[0] = (byte) (map((float) point.x, 0, 100, 0, 100));
+            buf[1] = (byte) (100 - map((float) point.y, 0, 100, 0, 100));
 
             sdl.write(buf, 0, 2);
 
