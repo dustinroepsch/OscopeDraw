@@ -4,12 +4,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Paddle {
+    public static final double PADDLE_WIDTH = .05;
+    public static final double PADDLE_HEIGHT = .15;
+
+
     public static final int samples_per_line = 80;
     static List<Line> paddleShape = Arrays.asList(
-            new Line(new Point(0, 0), new Point(.1, 0)),
-            new Line(new Point(.1, 0), new Point(.1, .3)),
-            new Line(new Point(.1, .3), new Point(0, .3)),
-            new Line(new Point(0, .3), new Point(0, 0))
+            new Line(new Point(0, 0), new Point(PADDLE_WIDTH, 0)),
+            new Line(new Point(PADDLE_WIDTH, 0), new Point(PADDLE_WIDTH, PADDLE_HEIGHT)),
+            new Line(new Point(PADDLE_WIDTH, PADDLE_HEIGHT), new Point(0, PADDLE_HEIGHT)),
+            new Line(new Point(0, PADDLE_HEIGHT), new Point(0, 0))
 
 
     );
