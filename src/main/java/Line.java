@@ -1,3 +1,5 @@
+import processing.core.PApplet;
+
 import java.util.ArrayList;
 
 public class Line {
@@ -25,5 +27,11 @@ public class Line {
         double m = (end.y - start.y) / (end.x - start.x);
 
         return m * (x - start.x) + start.y;
+    }
+
+    public void render(PApplet pApplet) {
+        pApplet.stroke(255);
+
+        pApplet.line((float) start.x, (float) start.y, (float) end.x, (float) end.y);
     }
 }
