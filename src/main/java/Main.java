@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) throws LineUnavailableException {
         byte[] buf = new byte[2];
 
-        AudioFormat af = new AudioFormat((float) 44100, 8, 2, true, false);
+        AudioFormat af = new AudioFormat((float) 96000, 8, 2, true, false);
         SourceDataLine sdl = AudioSystem.getSourceDataLine(af);
         sdl.open();
         sdl.start();

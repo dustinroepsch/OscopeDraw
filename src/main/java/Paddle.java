@@ -8,7 +8,7 @@ public class Paddle {
     public static final double PADDLE_HEIGHT = .15;
 
 
-    public static final int samples_per_line = 80;
+    public static final int samples_per_line = 100;
     static List<Line> paddleShape = Arrays.asList(
             new Line(new Point(0, 0), new Point(PADDLE_WIDTH, 0)),
             new Line(new Point(PADDLE_WIDTH, 0), new Point(PADDLE_WIDTH, PADDLE_HEIGHT)),
