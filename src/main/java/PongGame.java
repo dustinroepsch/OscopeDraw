@@ -90,6 +90,9 @@ public class PongGame extends PApplet {
         if (key == 'l') {
             rightPlayerMovingDown = false;
         }
+        if (key == 'n') {
+            System.out.println("Set breakpoint here for pause key");
+        }
     }
 
     @Override
@@ -127,21 +130,32 @@ public class PongGame extends PApplet {
         Ball.renderToSound(sdl, ball.x, ball.y, 255 / 2.0);
 
         ball.move((millis() - lastDrawTime) / 1000.0);
+//
 
-        if (ball.dx > 0 && Math.abs(ball.y - rightPlayer.y) < Paddle.PADDLE_HEIGHT && ball.x > 0.9) {
-            ball.dx = -ball.dx;
-            ball.dy = Math.abs(ball.y - (rightPlayer.y + Paddle.PADDLE_HEIGHT / 2));
+        if (ball.dx > 0) {
+            if (ball.x > rightPlayer.x - Paddle.PADDLE_WIDTH && Math.abs(ball.y - (rightPlayer.y + Paddle.PADDLE_HEIGHT / 2f)) < Paddle.PADDLE_HEIGHT / 2f) {
+                ball.dx = -Math.abs(ball.x - rightPlayer.y + Paddle.PADDLE_HEIGHT / 2f);
+            } else if (ball.x > 1) {
+                sdl.close();
+                System.exit(0);
+            }
+        } else {
+            if (ball.x - Ball.RADIUS < leftPlayer.x + Paddle.PADDLE_WIDTH && Math.abs(ball.y - (leftPlayer.y + Paddle.PADDLE_HEIGHT / 2f)) < Paddle.PADDLE_HEIGHT / 2f) {
+                ball.dx = Math.abs(ball.x - leftPlayer.y + Paddle.PADDLE_HEIGHT / 2f);
+            } else if (ball.x < 0) {
+                sdl.close();
+                System.exit(0);
+            }
         }
 
-        if (ball.dx < 0 && Math.abs(ball.y - rightPlayer.y) < Paddle.PADDLE_HEIGHT && ball.x < 0) {
-            ball.dx = -ball.dx;
-            ball.dy = Math.abs(ball.y - (rightPlayer.y + Paddle.PADDLE_HEIGHT / 2));
+        if (ball.y > 1 - Ball.RADIUS / 2f) {
+            ball.y = 1 - Ball.RADIUS / 2f;
+            ball.dy = -Math.abs(ball.dy);
         }
-
-        if (ball.y < 0 || ball.y > 1) {
-            ball.dy = -ball.dy;
+        if (ball.y < Ball.RADIUS / 2f) {
+            ball.y = Ball.RADIUS / 2f;
+            ball.dy = Math.abs(ball.dy);
         }
-
 
 
         lastDrawTime = millis();
