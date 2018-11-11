@@ -14,11 +14,13 @@ public class Main {
         sdl.start();
 
 
-
         while (true) {
-            Paddle.renderToSound(sdl, 0,  Math.sin(System.currentTimeMillis() /1000000.0)  , 80);
+            Paddle.renderToSound(sdl, 0, Math.sin(System.currentTimeMillis() / 3000.0), 80);
+
+            Paddle.renderToSound(sdl, .98, Math.cos(System.currentTimeMillis() / 3000.0), 80);
+
         }
+
+
     }
-
-
 }
