@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Ball {
-    static List<Point> drawingBuffer = createBallCenteredAtZero(.05);
+    public static final double RADIUS = 0.05;
+    static List<Point> drawingBuffer = createBallCenteredAtZero(RADIUS);
     private static final int number_of_samples = 40;
 
     private static List<Point> createBallCenteredAtZero(double radius) {
@@ -29,4 +30,15 @@ public class Ball {
 
     }
 
+    public double x = 0;
+    public double y = 0;
+
+
+    public double dx = 0.08;
+    public double dy = 0.08;
+
+    public void move(double seconds) {
+        x += dx * seconds;
+        y += dy * seconds;
+    }
 }

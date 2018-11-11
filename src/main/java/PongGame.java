@@ -8,6 +8,7 @@ import javax.sound.sampled.SourceDataLine;
 public class PongGame extends PApplet {
     Paddle leftPlayer;
     Paddle rightPlayer;
+    Ball ball;
     int lastDrawTime;
     SourceDataLine sdl;
 
@@ -39,8 +40,17 @@ public class PongGame extends PApplet {
 
             leftPlayer = new Paddle();
             leftPlayer.x = 0;
+            leftPlayer.y = .5 - Paddle.PADDLE_HEIGHT / 2.0;
             rightPlayer = new Paddle();
+            rightPlayer.y = .5 - Paddle.PADDLE_HEIGHT / 2.0;
             rightPlayer.x = 0.9;
+
+            ball = new Ball();
+
+
+            ball.x = 0.5;
+            ball.y = 0.5;
+
 
             lastDrawTime = millis();
         } catch (LineUnavailableException e) {
@@ -114,6 +124,24 @@ public class PongGame extends PApplet {
 
         Paddle.renderToSound(sdl, leftPlayer.x, leftPlayer.y, 255 / 2.0);
         Paddle.renderToSound(sdl, rightPlayer.x, rightPlayer.y, 255 / 2.0);
+        Ball.renderToSound(sdl, ball.x, ball.y, 255 / 2.0);
+
+        ball.move((millis() - lastDrawTime) / 1000.0);
+
+        if (ball.dx > 0 && Math.abs(ball.y - rightPlayer.y) < Paddle.PADDLE_HEIGHT && ball.x > 0.9) {
+            ball.dx = -ball.dx;
+            ball.dy = Math.abs(ball.y - (rightPlayer.y + Paddle.PADDLE_HEIGHT / 2));
+        }
+
+        if (ball.dx < 0 && Math.abs(ball.y - rightPlayer.y) < Paddle.PADDLE_HEIGHT && ball.x < 0) {
+            ball.dx = -ball.dx;
+            ball.dy = Math.abs(ball.y - (rightPlayer.y + Paddle.PADDLE_HEIGHT / 2));
+        }
+
+        if (ball.y < 0 || ball.y > 1) {
+            ball.dy = -ball.dy;
+        }
+
 
 
         lastDrawTime = millis();
