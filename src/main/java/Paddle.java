@@ -12,7 +12,6 @@ public class Paddle {
             new Line(new Point(0, .3), new Point(0, 0))
 
 
-
     );
 
     private static ArrayList<Point> drawingBuffer = calculateBuffer();
@@ -36,5 +35,7 @@ public class Paddle {
         }
 
     }
+
+    public double x, y;
 
 }

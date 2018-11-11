@@ -16,5 +16,12 @@
             <!-- or, for Android: -->
             <!--<version>27.0-android</version>-->
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.processing/core -->
+        <dependency>
+            <groupId>org.processing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.7</version>
+        </dependency>
+
     </dependencies>
 </project>

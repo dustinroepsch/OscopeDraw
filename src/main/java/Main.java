@@ -19,7 +19,11 @@ public class Main {
 
             Paddle.renderToSound(sdl, .98, Math.cos(System.currentTimeMillis() / 3000.0), 80);
 
+            Ball.renderToSound(sdl, 0.5, 0, 80);
+
         }
+
+
 
 
     }
