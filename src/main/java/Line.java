@@ -15,18 +15,12 @@ public class Line {
         ArrayList<Point> points = new ArrayList<Point>();
         for (double u = 0; u < 1; u += 1.0 / numSteps) {
             double currentX = (end.x - start.x) * u + start.x;
-            points.add(new Point(currentX, y(currentX)));
+            double currentY = (end.y - start.y) * u + start.y;
+
+            points.add(new Point(currentX, currentY));
         }
 
         return points;
-    }
-
-    private double y(double x) {
-        //y = m(x -x1) + y1
-
-        double m = (end.y - start.y) / (end.x - start.x);
-
-        return m * (x - start.x) + start.y;
     }
 
     public void render(PApplet pApplet) {
