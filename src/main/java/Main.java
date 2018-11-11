@@ -13,24 +13,10 @@ public class Main {
         sdl.open();
         sdl.start();
 
-        int i = 0;
-
-        int scale = 120;
-        int steps = 100;
-
-        ArrayList<Point> lineBuf = new Line(new Point(0, 0), new Point(1, 0)).toBufferPoints(steps);
-        lineBuf.addAll(new Line(new Point(1, 0), new Point(.5, 1)).toBufferPoints(steps));
-        lineBuf.addAll(new Line(new Point(.5, 1), new Point(0, 0)).toBufferPoints(steps));
 
 
         while (true) {
-            Point current = lineBuf.get(i % lineBuf.size());
-
-            buf[0] = (byte) (current.x * scale);
-            buf[1] = (byte) (current.y * scale);
-
-            sdl.write(buf, 0, 2);
-            i++;
+            Paddle.renderToSound(sdl, 0,  Math.sin(System.currentTimeMillis() /1000.0) , 80);
         }
     }
 
