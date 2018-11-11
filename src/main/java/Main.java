@@ -15,8 +15,8 @@ public class Main {
 
         int i = 0;
 
-        int scale = 300;
-        int steps = 5000;
+        int scale = 100;
+        int steps = 50;
 
         ArrayList<Point> lineBuf = new Line(new Point(0, 0), new Point(1, 0)).toBufferPoints(steps);
         lineBuf.addAll(new Line(new Point(1, 0), new Point(.5, 1)).toBufferPoints(steps));

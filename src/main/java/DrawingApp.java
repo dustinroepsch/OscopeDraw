@@ -59,7 +59,7 @@ public class DrawingApp extends PApplet {
             Line line = new Line(new Point(pmouseX, pmouseY), new Point(mouseX, mouseY));
 
             lines.add(line);
-            buffer.addAll(line.toBufferPoints(50));
+            buffer.addAll(line.toBufferPoints(5));
 
         }
 
@@ -69,6 +69,7 @@ public class DrawingApp extends PApplet {
 
 
         for (Point point : buffer) {
+
 
             buf[0] = (byte) (map((float) point.x, 0, width, 0, 100));
             buf[1] = (byte) (100 - map((float) point.y, 0, height, 0, 100));
