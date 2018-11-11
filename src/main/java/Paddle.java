@@ -1,11 +1,13 @@
+import processing.core.PApplet;
+
 import javax.sound.sampled.SourceDataLine;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Paddle {
-    public static final double PADDLE_WIDTH = .05;
-    public static final double PADDLE_HEIGHT = .15;
+    public static final float PADDLE_WIDTH = .05f;
+    public static final float PADDLE_HEIGHT = .25f;
 
 
     public static final int samples_per_line = 100;
@@ -40,6 +42,13 @@ public class Paddle {
 
     }
 
-    public double x, y;
+    public float x, y;
+
+    public void render(PApplet pApplet) {
+
+        pApplet.rect(
+                x, y, PADDLE_WIDTH, PADDLE_HEIGHT
+        );
+    }
 
 }

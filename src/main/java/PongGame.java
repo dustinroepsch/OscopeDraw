@@ -40,16 +40,16 @@ public class PongGame extends PApplet {
 
             leftPlayer = new Paddle();
             leftPlayer.x = 0;
-            leftPlayer.y = .5 - Paddle.PADDLE_HEIGHT / 2.0;
+            leftPlayer.y = (float) (.5 - Paddle.PADDLE_HEIGHT / 2.0);
             rightPlayer = new Paddle();
-            rightPlayer.y = .5 - Paddle.PADDLE_HEIGHT / 2.0;
-            rightPlayer.x = 0.9;
+            rightPlayer.y = (float) (.5 - Paddle.PADDLE_HEIGHT / 2.0);
+            rightPlayer.x = 0.9f;
 
             ball = new Ball();
 
 
-            ball.x = 0.5;
-            ball.y = 0.5;
+            ball.x = 0.5f;
+            ball.y = 0.5f;
 
 
             lastDrawTime = millis();
@@ -98,6 +98,8 @@ public class PongGame extends PApplet {
     @Override
     public void draw() {
 
+        ball.normalize();
+
         if (keyPressed) {
             if (leftPlayerMovingUp) {
                 leftPlayer.y += (millis() - lastDrawTime) / 1000.0;
@@ -125,40 +127,56 @@ public class PongGame extends PApplet {
             }
         }
 
-        Paddle.renderToSound(sdl, leftPlayer.x, leftPlayer.y, 255 / 2.0);
-        Paddle.renderToSound(sdl, rightPlayer.x, rightPlayer.y, 255 / 2.0);
-        Ball.renderToSound(sdl, ball.x, ball.y, 255 / 2.0);
+        Paddle.renderToSound(sdl, leftPlayer.x, leftPlayer.y, 250 / 2.0);
+        Paddle.renderToSound(sdl, rightPlayer.x, rightPlayer.y, 250 / 2.0);
+        Ball.renderToSound(sdl, ball.x, ball.y, 250 / 2.0);
 
         ball.move((millis() - lastDrawTime) / 1000.0);
 //
 
         if (ball.dx > 0) {
-            if (ball.x > rightPlayer.x - Paddle.PADDLE_WIDTH && Math.abs(ball.y - (rightPlayer.y + Paddle.PADDLE_HEIGHT / 2f)) < Paddle.PADDLE_HEIGHT / 2f) {
-                ball.dx = -Math.abs(ball.x - rightPlayer.y + Paddle.PADDLE_HEIGHT / 2f);
-            } else if (ball.x > 1) {
+            if (ball.x + 2 * Ball.RADIUS > rightPlayer.x && ball.y + 2 * Ball.RADIUS >= rightPlayer.y && ball.y <= rightPlayer.y + Paddle.PADDLE_HEIGHT) {
+                ball.dy = Math.abs(ball.y + Ball.RADIUS - (rightPlayer.y + Paddle.PADDLE_HEIGHT) / 2f);
+                ball.dx = -1;
+            } else if (ball.x + 2 * Ball.RADIUS > 1) {
                 sdl.close();
                 System.exit(0);
             }
         } else {
-            if (ball.x - Ball.RADIUS < leftPlayer.x + Paddle.PADDLE_WIDTH && Math.abs(ball.y - (leftPlayer.y + Paddle.PADDLE_HEIGHT / 2f)) < Paddle.PADDLE_HEIGHT / 2f) {
-                ball.dx = Math.abs(ball.x - leftPlayer.y + Paddle.PADDLE_HEIGHT / 2f);
+            if (ball.x < leftPlayer.x + Paddle.PADDLE_WIDTH && ball.y + 2 * Ball.RADIUS >= leftPlayer.y && ball.y <= leftPlayer.y + Paddle.PADDLE_HEIGHT) {
+                ball.dy = -Math.abs(ball.y + Ball.RADIUS - (leftPlayer.y + Paddle.PADDLE_HEIGHT) / 2f);
+                ball.dx = 1;
             } else if (ball.x < 0) {
                 sdl.close();
                 System.exit(0);
             }
         }
-
-        if (ball.y > 1 - Ball.RADIUS / 2f) {
-            ball.y = 1 - Ball.RADIUS / 2f;
+        System.out.println("x: " + ball.x + " y: " + ball.y);
+        if (ball.y + 2 * Ball.RADIUS > 1) {
+            ball.y = 1 - 2 * Ball.RADIUS;
             ball.dy = -Math.abs(ball.dy);
         }
-        if (ball.y < Ball.RADIUS / 2f) {
-            ball.y = Ball.RADIUS / 2f;
+
+        if (ball.y < 0) {
+            ball.y = 0;
             ball.dy = Math.abs(ball.dy);
         }
 
 
         lastDrawTime = millis();
+
+        resetMatrix();
+
+        background(0);
+        stroke(255);
+        strokeWeight(0.001f);
+        scale(width, height);
+
+//        line(0, .5f, 1, .5f);
+//
+        ball.render(this);
+        leftPlayer.render(this);
+        rightPlayer.render(this);
     }
 
     public static void main(String[] args) {

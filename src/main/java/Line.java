@@ -11,9 +11,9 @@ public class Line {
 
     public ArrayList<Point> toBufferPoints(int numSteps) {
         ArrayList<Point> points = new ArrayList<Point>();
-        for (double u = 0; u < 1; u += 1.0 / numSteps) {
-            double currentX = (end.x - start.x) * u + start.x;
-            double currentY = (end.y - start.y) * u + start.y;
+        for (float u = 0; u < 1; u += 1.0 / numSteps) {
+            float currentX = (end.x - start.x) * u + start.x;
+            float currentY = (end.y - start.y) * u + start.y;
 
             points.add(new Point(currentX, currentY));
         }
