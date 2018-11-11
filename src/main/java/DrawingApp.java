@@ -57,9 +57,31 @@ public class DrawingApp extends PApplet {
         if (mousePressed) {
 
             Line line = new Line(new Point(pmouseX, pmouseY), new Point(mouseX, mouseY));
+            if (line.lenSquared() > 0) {
+                Line last = null;
 
-            lines.add(line);
-            buffer.addAll(line.toBufferPoints(5));
+                if (lines.size() > 0) {
+                    last = lines.get(lines.size() - 1);
+
+                    if (LineUtils.CanCombine(last, line, 10.0 * 3.14159 / 180.0, 5.0)) {
+                        lines.set(lines.size() - 1, new Line(last.start, line.end));
+                    }
+                    else {
+                        lines.add(line);
+                    }
+                }
+                else {
+                    lines.add(line);
+                }
+
+
+
+                buffer = new ArrayList<Point>();
+
+                for (Line l : lines) {
+                    buffer.addAll(l.toBufferPoints(5));
+                }
+            }
 
         }
 
