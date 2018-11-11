@@ -15,6 +15,10 @@ public class DrawingApp extends PApplet {
 
     ArrayList<Point> buffer;
 
+    Thread oscThread;
+
+
+
 
     @Override
     public void settings() {
@@ -33,6 +37,14 @@ public class DrawingApp extends PApplet {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+
+        oscThread = new Thread(new Runnable() {
+            public void run() {
+
+            }
+        });
+
+        oscThread.start();
     }
 
     @Override
