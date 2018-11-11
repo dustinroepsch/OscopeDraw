@@ -8,7 +8,11 @@ public class Paddle {
     static List<Line> paddleShape = Arrays.asList(
             new Line(new Point(0, 0), new Point(.1, 0)),
             new Line(new Point(.1, 0), new Point(.1, .3)),
-            new Line(new Point(.1, .3), new Point(0, .3))
+            new Line(new Point(.1, .3), new Point(0, .3)),
+            new Line(new Point(0, .3), new Point(0, 0))
+
+
+
     );
 
     private static ArrayList<Point> drawingBuffer = calculateBuffer();

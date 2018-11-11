@@ -16,7 +16,7 @@ public class Main {
 
 
         while (true) {
-            Paddle.renderToSound(sdl, 0,  Math.sin(System.currentTimeMillis() /1000.0) , 80);
+            Paddle.renderToSound(sdl, 0,  Math.sin(System.currentTimeMillis() /1000000.0)  , 80);
         }
     }
 
